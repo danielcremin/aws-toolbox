@@ -61,7 +61,7 @@ class AWSIPChecker:
 
         return False, None
 
-    def app(self, ip_address):
+    def app(self, ip_address) -> dict:
 
         if self.check_valid_ip(ip_address):
 
