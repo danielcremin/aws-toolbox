@@ -10,7 +10,7 @@ class AWSIPChecker:
 
         self.AWS_IP_RANGES = 'https://ip-ranges.amazonaws.com/ip-ranges.json'
 
-    def check_valid_ip(self, ip_address) -> bool:
+    def check_valid_ip(self, ip_address: str) -> bool:
 
         """Checks the provided IP a valid IPv4 address
 
@@ -41,9 +41,9 @@ class AWSIPChecker:
                 print('[Error] - Response code: {}'.format(r.status_code))
 
         except requests.exceptions.RequestException as e:
-            print('[Error] -'.format(e))
+            print('[Error] - {}'.format(e))
 
-    def check_ip_in_aws_ranges(self, ip_address, aws_ip_ranges) -> bool and str:
+    def check_ip_in_aws_ranges(self, ip_address: str, aws_ip_ranges: list) -> bool and str:
 
         """Checks if the IP exists within AWS' IP ranges
 
@@ -61,7 +61,7 @@ class AWSIPChecker:
 
         return False, None
 
-    def app(self, ip_address) -> dict:
+    def app(self, ip_address: str) -> dict:
 
         if self.check_valid_ip(ip_address):
 
@@ -88,17 +88,17 @@ def main():
        with additional details provided such as the region of the IP if it
        is owned by AWS.
 
-      This is script can be used standalone or as an import to another project.
+       This is script can be used standalone or as an import to another project.
 
-      ** Examples **
+       ** Examples **
 
-      Usage 1: python aws_ip_checker.py 54.169.123.103
-      Return: {'aws_owned': True, 'prefix': '54.169.0.0/16', 'region': 'ap-southeast-1', 'service': 'AMAZON'}
+       Usage 1: python aws_ip_checker.py 54.169.123.103
+       Return: {'aws_owned': True, 'prefix': '54.169.0.0/16', 'region': 'ap-southeast-1', 'service': 'AMAZON'}
 
-      Usage 2: python aws_ip_checker.py 10.10.10.10
-      Return: {'aws_owned': False}
+       Usage 2: python aws_ip_checker.py 10.10.10.10
+       Return: {'aws_owned': False}
 
-     Author: https://github.com/danielcremin"""
+      Author: https://github.com/danielcremin"""
 
     parser = argparse.ArgumentParser(description='AWS IP Checker - Checks if a IPv4 address is owned by AWS')
     parser.add_argument("ip_address", help="The IPv4 address to check")
